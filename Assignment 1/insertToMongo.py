@@ -1,13 +1,21 @@
 #!/usr/bin/python3
 
 from pymongo import MongoClient
-import os
+import os, sys, getopt
 import timeit
 import json
 
 datadir = './data'
 
-image_amount = 40
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "n:")
+except getopt.GetoptError:
+    print('insertToMongo.py -n <image_amount>')
+    sys.exit(2)
+
+for opt, arg in opts:
+    if opt == '-n':
+        image_amount = arg
 
 # set up connection
 client = MongoClient("mongodb://172.17.0.2:27017")

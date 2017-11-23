@@ -1,19 +1,30 @@
 #!/usr/bin/python3
 
-import os
+import os, sys, getopt
 import json
 import timeit
 import time
-from shutil import copyfile
+from shutil import copyfile, rmtree
 
 datadir = './data'
 filestoredir = './datastore'
 
-image_amount = 40
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "n:")
+except getopt.GetoptError:
+    print('insertToFileStore.py -n <image_amount>')
+    sys.exit(2)
+
+for opt, arg in opts:
+    if opt == '-n':
+        image_amount = arg
 
 if not os.path.isdir(filestoredir):
     os.mkdir(filestoredir)
-
+else:
+    rmtree(filestoredir)
+    os.mkdir(filestoredir)
+    
 print('inserting {}'.format(image_amount))
 
 start_time = timeit.default_timer()

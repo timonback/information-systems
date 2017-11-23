@@ -1,14 +1,23 @@
 #!/usr/bin/python3
 
 from pymongo import MongoClient
-import os
+import os, sys, getopt
 import timeit
 import json
 import random
 
 datadir = './data'
 
-image_amount = 40
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "n:")
+except getopt.GetoptError:
+    print('readFromMongo.py -n <image_amount>')
+    sys.exit(2)
+
+for opt, arg in opts:
+    if opt == '-n':
+        image_amount = arg
+
 xy_coord = random.randint(0, 274999)
 
 # set up connection

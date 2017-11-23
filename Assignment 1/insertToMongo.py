@@ -7,14 +7,16 @@ import json
 
 datadir = './data'
 
-image_amount = 400
+image_amount = 40
 
 # set up connection
 client = MongoClient("mongodb://172.17.0.2:27017")
-print(client.server_info())
-exit()
+#print(client.server_info())
+#exit()
 db = client['lab1info']
 coll = db['datastore']
+
+print('inserting {}'.format(image_amount))
 
 start_time = timeit.default_timer()
 # code you want to evaluate
@@ -27,3 +29,4 @@ for image_index in range(0, image_amount):
 
 elapsed = timeit.default_timer() - start_time
 
+print('insert time elapsed {}'.format(elapsed))

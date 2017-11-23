@@ -34,7 +34,6 @@ for image_index in range(0, image_amount):
     images.append(d)
 
 elapsed = timeit.default_timer() - start_time
-print(elapsed)
 
 print('read time elapsed {}'.format(elapsed))
 
@@ -49,7 +48,7 @@ for image_index in range(0, image_amount):
     with open(file_obj_src) as json_data:
         d = json.load(json_data)
 
-    trend.append(d[xy_coord])
+    trend.append(d[str(image_index)][str(xy_coord)])
 
 elapsed = timeit.default_timer() - start_time
 

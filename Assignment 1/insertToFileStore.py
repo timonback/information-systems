@@ -17,14 +17,14 @@ except getopt.GetoptError:
 
 for opt, arg in opts:
     if opt == '-n':
-        image_amount = arg
+        image_amount = int(arg)
 
 if not os.path.isdir(filestoredir):
     os.mkdir(filestoredir)
 else:
     rmtree(filestoredir)
     os.mkdir(filestoredir)
-    
+
 print('inserting {}'.format(image_amount))
 
 start_time = timeit.default_timer()

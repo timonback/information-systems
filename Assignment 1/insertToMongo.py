@@ -15,7 +15,7 @@ except getopt.GetoptError:
 
 for opt, arg in opts:
     if opt == '-n':
-        image_amount = arg
+        image_amount = int(arg)
 
 # set up connection
 client = MongoClient("mongodb://172.17.0.2:27017")

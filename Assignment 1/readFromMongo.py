@@ -16,7 +16,7 @@ except getopt.GetoptError:
 
 for opt, arg in opts:
     if opt == '-n':
-        image_amount = arg
+        image_amount = int(arg)
 
 xy_coord = random.randint(0, 274999)
 

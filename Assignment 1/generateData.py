@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import os
+import os, sys, getopt
 import json
 import random
 
@@ -11,7 +11,16 @@ import random
 # Each image represent the rain of one hour
 # The data is completely random and following images have no connection
 
-image_amount = 400
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "n:")
+except getopt.GetoptError:
+    print('generateData.py -n <image_amount>')
+    sys.exit(2)
+
+for opt, arg in opts:
+    if opt == '-n':
+        image_amount = int(arg)
+
 image_x = 500
 image_y = 550
 point_prob = 0.1

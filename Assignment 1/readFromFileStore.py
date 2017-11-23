@@ -28,8 +28,8 @@ start_time = timeit.default_timer()
 for image_index in range(0, image_amount):
     file_image_src = '{path}/{index}.blob'.format(path=filestoredir, index=image_index)
 
-    with open(file_image_src) as json_data:
-        d = json.load(json_data)
+    with open(file_image_src) as file:
+        d = file.read()
 
     images.append(d)
 

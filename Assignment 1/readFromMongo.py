@@ -56,7 +56,7 @@ for image_index in range(0, image_amount):
 
     result = coll.find_one({"image": image_index, "type": "json"},
                            {"_id": 0, "data.{}".format(xy_coord): 1})
-    if not result.acknowledged:
+    if not result:
         sys.exit(2)
 
     pprint.pprint(result)

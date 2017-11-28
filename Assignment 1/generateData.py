@@ -54,9 +54,12 @@ for image_index in range(0, image_amount):
 
     with open(file_image_obj_name, 'w') as file:
         json_data = {}
+        data = {}
+        json_data['image'] = image_index
         for i in range(0, len(image)):
-            json_data[str(i)] = image[i]
-        json.dump({image_index: json_data}, file)
+            data[str(i)] = image[i]
+        json_data['data'] = data
+        json.dump(json_data, file)
 
 
 

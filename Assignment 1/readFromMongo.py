@@ -3,7 +3,7 @@
 from pymongo import MongoClient
 import os, sys, getopt
 import timeit
-import json
+import pprint
 import random
 
 datadir = './data'
@@ -35,7 +35,11 @@ start_time = timeit.default_timer()
 # code you want to evaluate
 for image_index in range(0, image_amount):
 
-    result = coll.find_one(image_index)
+    result = coll.find_one({"image": image_index, "type": "blob"}, {"data": 1, "_id": 0})
+
+    if not result.acknowledged:
+        sys.exit(2)
+
     images.append(result)
 
 elapsed = timeit.default_timer() - start_time
@@ -50,8 +54,14 @@ start_time = timeit.default_timer()
 # code you want to evaluate
 for image_index in range(0, image_amount):
 
-    result = coll.find_one(image_index)
-    trend.append(result[xy_coord])
+    result = coll.find_one({"image": image_index, "type": "json"},
+                           {"_id": 0, "data.{}".format(xy_coord): 1})
+    if not result.acknowledged:
+        sys.exit(2)
+
+    pprint.pprint(result)
+    trend.append(result)
+
 
 elapsed = timeit.default_timer() - start_time
 

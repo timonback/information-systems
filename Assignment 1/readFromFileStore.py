@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import os, sys, getopt
-import json
+import json, pprint
 import timeit
 import random
 
@@ -48,7 +48,7 @@ for image_index in range(0, image_amount):
     with open(file_obj_src) as json_data:
         d = json.load(json_data)
 
-    trend.append(d[str(image_index)][str(xy_coord)])
+    trend.append(d['data'][str(xy_coord)])
 
 elapsed = timeit.default_timer() - start_time
 

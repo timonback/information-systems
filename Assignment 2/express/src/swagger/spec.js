@@ -14,7 +14,7 @@ module.exports = {
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         }
     },
-    "host": "localhost:8080",
+    "host": "localhost:7700",
     "basePath": "/",
     "tags": [
         {

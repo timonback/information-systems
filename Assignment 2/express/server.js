@@ -4,8 +4,11 @@ var bodyParser = require('body-parser');
 var path = require('path');
 
 const PORT = 7700;
+
 const server = express();
-server.use('*', cors({ origin: 'http://localhost:7800' }));
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use('*', cors({ origin: 'http://localhost:7700' }));
 
 
 // Swagger
@@ -17,7 +20,6 @@ server.use(swagger.router(spec, handlers));
 // SWAGGER UI SETUP
 server.use(express.static(path.join(__dirname, 'public')));
 server.use('/swagger', express.static(path.join(__dirname, 'node_modules/swagger-ui/dist')));
-server.use('/doc', express.static(path.join(__dirname, 'src/swagger/swagger.yml')));
 
 
 // GraphQL
@@ -49,6 +51,6 @@ server.use(function(err, req, res, next) {
     });
 });
 
-server.listen(PORT, () =>
-  console.log(`Server is now running on http://localhost:${PORT}`)
-);
+server.listen(PORT, () => {
+    console.log('Server is now running on http://localhost:${PORT}');
+});

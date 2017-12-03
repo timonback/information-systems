@@ -12,5 +12,5 @@ export const sequelize = new Sequelize('database', 'username', 'password', {
     },
 
     // SQLite only
-    storage: 'database.sqlite'
+    storage: './database.sqlite'
 });

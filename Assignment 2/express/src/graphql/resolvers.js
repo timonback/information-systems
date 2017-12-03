@@ -1,3 +1,5 @@
+const dudeService = require('../service/dudeService');
+
 const channels = [{
   id: 1,
   name: 'soccer',
@@ -11,6 +13,7 @@ let nextId = 3;
 export const resolvers = {
   Query: {
     channels: () => {
+        dudeService.log();
       return channels;
     },
     channel: (root, { id }) => {

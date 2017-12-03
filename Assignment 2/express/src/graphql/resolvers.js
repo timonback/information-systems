@@ -17,7 +17,7 @@ export const resolvers = {
         return dudeService.addDude(args.name);
     },
       addFriend: (root, args) => {
-          return dudeService.addFriend(args.id, args.friend);
+          return dudeService.addFriend(args.dudeId, args.friendId);
       },
   },
 };

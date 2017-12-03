@@ -22,7 +22,7 @@ const typeDefs = `
     # The mutation root type, used to define all mutations.
     type Mutation {
       addDude(name: String!): Dude
-      addFriend(id: Int, friend: Int): Dude
+      addFriend(dudeId: Int, friendId: Int): Dude
     }
     `;
 

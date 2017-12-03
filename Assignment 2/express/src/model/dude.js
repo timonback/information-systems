@@ -8,13 +8,15 @@ const Dude = sequelize.define('dude', {
         type: Sequelize.STRING,
         get: function() {
             const value = this.getDataValue('friends');
-            if(value !== undefined && value !== null) {
-                return JSON.parse(value);
+            if (value !== undefined && value !== null) {
+                const res = JSON.parse(value);
+                return res;
             }
-            return {}
+            return [];
         },
         set: function(val) {
-            return this.setDataValue('friends', JSON.stringify(val));
+            const res = JSON.stringify(val);
+            return this.setDataValue('friends', res);
         }
     },
     status: Sequelize.STRING

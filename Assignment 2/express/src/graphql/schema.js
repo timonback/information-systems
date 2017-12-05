@@ -22,7 +22,7 @@ const typeDefs = `
   type Query {
     articles: [Article]
     article(id: Int!): Article
-    dudes: [Article]
+    dudes: [Dude]
     dude(id: Int!): Dude
   }
 

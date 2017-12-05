@@ -11,8 +11,8 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use('*', cors({ origin: 'http://localhost:7700' }));
 
 
-// Authorization
-server.use(function (req, res, next) {
+// Authorization for the dude REST-API
+server.use('/dude', function (req, res, next) {
     if(req.header("Authorization") === 'secret') {
         next()
     } else {

@@ -11,9 +11,19 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use('*', cors({ origin: 'http://localhost:7700' }));
 
 
+// Authorization
+server.use(function (req, res, next) {
+    if(req.header("Authorization") === 'secret') {
+        next()
+    } else {
+        res.status(401).send('Unauthorized');
+    }
+});
+
+
 // Swagger
 var swagger = require("swagger-n");
-var spec = require('./src/swagger/spec');
+var spec = require('./src/swagger/swagger.json');
 var handlers = require('./src/swagger/handlers');
 server.use(swagger.router(spec, handlers));
 
@@ -52,5 +62,5 @@ server.use(function(err, req, res, next) {
 });
 
 server.listen(PORT, () => {
-    console.log('Server is now running on http://localhost:${PORT}');
+    console.log('Server is now running on http://localhost:7700');
 });

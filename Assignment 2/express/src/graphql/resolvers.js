@@ -1,23 +1,23 @@
+const articleService = require('../service/articleService');
 const dudeService = require('../service/dudeService');
 
+
 export const resolvers = {
-  Query: {
-    dudes: () => {
-      return dudeService.findAll();
+    Query: {
+        articles: () => articleService.findAll(),
+        article: (_, { id }) => articleService.findById(id),
+        dudes: () => dudeService.findAll(),
+        dude: (_, { id }) => dudeService.findById(id),
     },
-    dude: (root, { id }) => {
-      return dudeService.findById(id);
+    Mutation: {
+        upvoteArticle: (_, { articleId }) => {
+            articleService.upvoteArticle(articleId)
+        },
     },
-      dudesByStatus: (root, { status }) => {
-          return dudeService.findByStatus(status);
-      },
-  },
-  Mutation: {
-    addDude: (root, args) => {
-        return dudeService.addDude(args.name);
+    Dude: {
+        articles: (dude) => articleService.findByDude(dude),
     },
-      addFriend: (root, args) => {
-          return dudeService.addFriend(args.dudeId, args.friendId);
-      },
-  },
+    Article: {
+        dude: (article) => dudeService.findByArticle(article),
+    },
 };

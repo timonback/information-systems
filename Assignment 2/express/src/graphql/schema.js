@@ -5,26 +5,34 @@ import {
 import { resolvers } from './resolvers';
 
 const typeDefs = `
-    type Dude {
-      id: ID!                # "!" denotes a required field
-      name: String
-      friends: [Int]
-      status: String
-    }
+  type Dude {
+    id: Int!
+    name: String
+    articles: [Article] # the list of Articles by this author
+  }
 
-    # This type specifies the entry points into our API.
-    type Query {
-      dudes: [Dude]    # "[]" means this is a list of channels
-      dude(id: ID!): Dude
-      dudesByStatus(status: String!): [Dude]
-    }
+  type Article {
+    id: Int!
+    title: String
+    dude: Dude
+    votes: Int
+  }
 
-    # The mutation root type, used to define all mutations.
-    type Mutation {
-      addDude(name: String!): Dude
-      addFriend(dudeId: Int, friendId: Int): Dude
-    }
-    `;
+  # the schema allows the following query:
+  type Query {
+    articles: [Article]
+    article(id: Int!): Article
+    dudes: [Article]
+    dude(id: Int!): Dude
+  }
+
+  # this schema allows the following mutation:
+  type Mutation {
+    upvoteArticle (
+      articleId: Int!
+    ): Article
+  }
+`;
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 export { schema };

@@ -1,0 +1,12 @@
+<h1>Demo project</h1>
+Make sure to include the Authorization header with the value secret.
+
+<p>Swagger API is visible at <a href="./swagger">/swagger</a> with the definition being at <a href="./swagger.json">/swagger.json</a></p>
+
+<p>GraphQL is at <a href="./graphql">/graphql</a> with a ui being at <a href="./graphiql">/graphiql</a></p>
+
+<p>Add a new <a href="./graphiql?query=mutation {%0A  addDude(name%3A "asdf") {%0A    id friends%0A  }%0A}">dude</a></p>
+
+<p>Listing of  <a href="./graphiql?query={%0A  dudes {%0A    id%0A    name%0A    friends%0A  }%0A}%0A">dudes</a></p>
+
+<p>Link two dudes together <a href="./graphiql?query=mutation {%0A  addFriend(dudeId%3A 1%2C friendId%3A 2) {%0A    id status friends %0A  }%0A}">dude</a></p>

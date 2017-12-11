@@ -1,46 +1,43 @@
-import { find, filter } from 'lodash';
-
-//const Article = require('../model/article');
-
-const articles = [
-    { id: 1, authorId: 1, title: 'Introduction to GraphQL', votes: 2 },
-    { id: 2, authorId: 2, title: 'Welcome to Meteor', votes: 3 },
-    { id: 3, authorId: 2, title: 'Advanced GraphQL', votes: 1 },
-    { id: 4, authorId: 3, title: 'Launchpad is Cool', votes: 7 },
-];
+import db from '../database/database';
 
 const ArticleService = function () {};
 
-/*ArticleService.prototype.add = function (name, author) {
-    return Article.create({name: name, content: 'asdf'})
-        .then((dude) => {
-            console.log(dude.get({
-                plain: true
-            }));
-            return dude;
-        });
-};*/
-
 ArticleService.prototype.findAll = function () {
-    //return Article.findAll();
-    return articles;
+    return db.from('articles').then(articles => {
+        return articles;
+    });
 };
 
 ArticleService.prototype.findByDude = function (dude) {
-    //return Article.findOne({where: {articles: dude.id}});
-    return filter(articles, { authorId: dude.id });
+    return db.where('dude_id', dude.id).from('articles').then(articles => {
+        return articles;
+    });
 };
+
+ArticleService.prototype.findDudeById = function(id) {
+    return db.where('id', id).select('dude_id').from('articles').then(articles => {
+        return db.where('id', articles[0].dude_id).from('dudes').then(dudes => {
+            return dudes[0];
+        });
+    });
+}
 
 ArticleService.prototype.findById = function (id) {
-    return find(articles, {id: id});
-    //return Article.findOne({where: {id: id}});
+    return db.where('dude_id', id).from('articles').then(articles => {
+        return articles[0];
+    });
 };
 
-ArticleService.prototype.upvoteArticle = function (id) {
-    let article = this.findById(id);
-    article.votes++;
-    return article;
-    //return Article.findOne({where: {id: id}});
+ArticleService.prototype.upvoteArticle = function (articleId) {
+    return db.where('id', articleId).from('articles').then(articles => {
+        return db('articles').where('id', articleId).update( {
+            votes: articles[0].votes +1
+        }).then(() => {
+            let article = articles[0];
+            article.votes++; //Update does not return the updated object
+            return article;
+        });
+    });
 };
 
 module.exports = new ArticleService();

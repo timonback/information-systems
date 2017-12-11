@@ -1,45 +1,31 @@
-import { find, filter } from 'lodash';
-
-//const Dude = require('../model/dude');
-
-// example data
-const authors = [
-    { id: 1, name: 'Tom'},
-    { id: 2, name: 'Sashko' },
-    { id: 3, name: 'Mikhail' },
-];
-let authorsId=authors.length;
+import db from '../database/database';
 
 const DudeService = function () {};
 
 DudeService.prototype.addDude = function (name) {
-    /*return Dude.create({name: name, friends: [], status: 'pending'})
-        .then((dude) => {
-            console.log(dude.get({
-                plain: true
-            }));
-            return dude;
-        });*/
-    authors.push({id: ++authorsId, name: name});
+    return db.insert({name: name}).from('dudes').then(user => {
+        return user;
+    })
 };
 
 DudeService.prototype.findAll = function () {
-    //return Dude.findAll();
-    return authors;
+    return db.from('dudes').then(dudes => {
+        return dudes;
+    });
 };
 
-DudeService.prototype.findByArticle = function (article) {
-    //return Dude.findOne({where: {article: article.id}});
-    return find(authors, { id: article.authorId });
+DudeService.prototype.findAllArticlesById = function (id) {
+    return db.where('id', id).select('id').from('dudes').then(dudes => {
+        return db.where('dude_id', dudes[0].id).from('articles').then(articles => {
+            return articles;
+        });
+    });
 };
 
 DudeService.prototype.findById = function (id) {
-    //return Dude.findOne({where: {id: id}});
-    return find(authors, { id: id });
-};
-
-DudeService.prototype.findByStatus = function (status) {
-    return Dude.findAll({where: {status: status}});
+    return db.where('id', id).from('dudes').then(dudes => {
+        return dudes[0];
+    });
 };
 
 module.exports = new DudeService();

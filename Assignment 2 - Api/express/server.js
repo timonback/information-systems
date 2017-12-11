@@ -37,7 +37,7 @@ import {
     graphqlExpress,
     graphiqlExpress,
 } from 'graphql-server-express';
-import { schema } from './src/graphql/schema';
+import schema from './src/graphql/index';
 server.use('/graphql', bodyParser.json(), graphqlExpress({
   schema
 }));

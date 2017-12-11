@@ -17,7 +17,31 @@ needs a simple Authorization header
 ## GraphQL
 
 ### Getting all the data
-`curl -XPOST -H 'Content-Type:application/json' -d '{"query": "query {dudes {id name articles {id}}}"}' localhost:7700/graphql`
+`curl -XPOST -H 'Content-Type:application/json' -d '{"query": "query {dudes {id name articles {id title}}}"}' localhost:7700/graphql`
+
 returns
- {"data":{"dudes":[{"id":1,"name":"Tom","articles":[{"id":1}]},{"id":2,"name":"Sashko","articles":[{"id":2},{"id":3}]},{"id":3,"name":"Mikhail","articles":[{"id":4}]}]}}`
- 
+
+```
+{
+  "data": {
+    "dude": {
+      "id": "2",
+      "name": "DudeB",
+      "articles": [
+        {
+          "id": "3",
+          "title": "Casear"
+        },
+        {
+          "id": "6",
+          "title": "Casear"
+        },
+        {
+          "id": "9",
+          "title": "Casear"
+        }
+      ]
+    }
+  }
+}
+```

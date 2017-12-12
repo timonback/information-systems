@@ -1,5 +1,6 @@
 import db from '../database/database';
 
+// Service to abstract from the database
 const ArticleService = function () {};
 
 ArticleService.prototype.findAll = function () {

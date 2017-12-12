@@ -1,6 +1,7 @@
 const articleService = require('../service/articleService');
 const dudeService = require('../service/dudeService');
 
+// Called by the swagger library, which maps the swagger configuration to these methods
 module.exports = {
     addDude: function (req, res) {
         dudeService.addDude(req.body.name).then(dude => {

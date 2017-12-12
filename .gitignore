@@ -100,3 +100,5 @@ ENV/
 # mypy
 .mypy_cache/
 */.idea/
+Assignment 1/datastore
+Assignment 1/data

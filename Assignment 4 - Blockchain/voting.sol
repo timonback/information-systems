@@ -28,6 +28,8 @@ contract Ballot {
         address indexed _from,
         uint256 indexed _questionIndex
     );
+	
+    enum QuestionOutcome {Accepted, Tied, Denied}
 
     address director;
     Question[] questions;
@@ -42,8 +44,8 @@ contract Ballot {
       * @param index The number of the question
       * @return res The actual question
       */
-    function seeQuestion(uint8 index) public constant returns (string res) {
-        res = questions[index].question;
+    function seeQuestion(uint8 index) public constant returns (string) {
+        return (questions[index].question);
     }
     
     /** @dev Lets the deployer add a new question
@@ -129,7 +131,7 @@ contract Ballot {
       * @return validDecision Whether the question has a clear outcome (not a tie)
       * @return questionAccepted The outcome (TRUE=accepted, FALSE=denied)
       */
-    function questionResult(uint8 index) public constant returns (bool, bool) {
+    function questionResult(uint8 index) public constant returns (QuestionOutcome) {
         Question storage question = questions[index];
         if(msg.sender != director) {
             // Everyone except the director has to wait for the question to be
@@ -137,8 +139,12 @@ contract Ballot {
             require(!question.isOpen);
         }
         
-        bool validDecision = (question.result != 0);
-        bool outcome = int8(0) < question.result;
-        return (validDecision, outcome);
+        if(question.result != 0) {
+            if(int8(0) < question.result) {
+                return QuestionOutcome.Accepted;
+            }
+            return QuestionOutcome.Denied;
+        }
+        return QuestionOutcome.Tied;
     }
 }

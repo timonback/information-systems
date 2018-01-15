@@ -2,14 +2,17 @@ const http = require('http');
 const queue = require('./queue');
 const queueIterator = require('./queueIterator');
 
+/** create a data point */
 function random(low, high) {
     return Math.random() * (high - low) + low;
 }
 
+/** create a value in a certain range */
 function numberSource() {
     return random(0, 5);
 }
 
+/** calculate the SMA of a queue structure */
 function getSimpleMovingAverage(queue) {
     var val = 0;
     const iterator = new queueIterator(queue);
@@ -20,6 +23,7 @@ function getSimpleMovingAverage(queue) {
     return val;
 }
 
+/** publish a value to the cloud server */
 function sendToEdgeNode(payload) {
     const API_KEY = 'VYNULCYYRUT5J6FN';
     var options = {
@@ -58,6 +62,8 @@ function processReadingOnIotDevice(number) {
     }
 }
 
+
+/** 1s scheduler */
 setInterval(function () {
     const number = numberSource();
     processReadingOnIotDevice(number);

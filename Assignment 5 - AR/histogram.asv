@@ -1,0 +1,13 @@
+M = readtable('groceries.csv','ReadVariableNames',false);
+
+items = table2array(M);
+items = items(:);
+
+items_unique = unique(items);
+
+dist_data = [];
+for item_i = 1:size(items_unique,1)
+    item = items_unique{ite
+    cnt = sum(find(ismember(items, item)));
+    dist_data(end+1) = [item_i cnt];
+end
